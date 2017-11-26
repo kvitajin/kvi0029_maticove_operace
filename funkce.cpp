@@ -3,6 +3,7 @@
 //
 #include "funkce.h"
 #include <iostream>
+#include <vector>
 #include <cstdlib>
 
 void menu(){                                                    ///Funkce vypise prvotni hlavicku do terminalu
@@ -13,9 +14,11 @@ void menu(){                                                    ///Funkce vypise
     std::cout   <<  "T - terminal"<< std::endl;
     std::cout   <<  "S - soubor"<< std::endl;
     std::cout   <<  "E - pro ukonceni programu"<< std::endl;
+    std::cout   <<  "========================="<< std::endl;
+
 }
 
-void otravnaHlavicka(char pismeno){
+/*void otravnaHlavicka(char pismeno){
     if (pismeno=='E'){
         menu();
     }
@@ -23,14 +26,14 @@ void otravnaHlavicka(char pismeno){
         //terminal();                 //TODO
     }
 
-}
+}*/
 
 char odkudCtu(){
     char pismeno;
     std::cin    >>  pismeno;
 
     if (std::cin.fail()){
-        std::cout   <<  "Nezadal jste pismeno." <<  std::endl;
+        std::cout   <<  "Nezadal jste validni pismeno. Zkuste to znova." <<  std::endl;
         return 'E';
     }
     if (pismeno=='t' || pismeno == 'T'){
@@ -46,9 +49,30 @@ char odkudCtu(){
         std::cout   <<  "Nezadal jste pismeno." <<  std::endl;
         return 'E';
     }
+}
+
+void velikostMatice(int &radku, int &sloupcu){
+    std::cout   <<  "Zadejte pozadovanou velikost leve strany matice"  <<  std::endl;
+    std::cout   <<  "zadejte pocet radku:"      <<  std::endl;
+    std::cin    >>  radku;
+    std::cout   <<  "Zadejte pocet sloupcu:"    <<  std::endl;
+    std::cin    >>  sloupcu;
 
 }
-void paticka(){
-    std::cout   <<  "Preji hezky den"   <<  std::endl;
+void vytvorMatici(const int radku, const int sloupcu, std::vector< std::vector <int> > &matice){
+
+
+    matice.resize((unsigned long)radku);
+    for(int i = 0 ; i < radku ; ++i){
+        matice[i].resize((unsigned long)sloupcu+1);
+    }
 }
-//gitk knihovna,
+
+int souborVetev(){}                     //TODO
+int terminalVetev(){
+
+    return 0;
+}
+void paticka(){
+    std::cout   <<  "Preji hezky den."   <<  std::endl;
+}
