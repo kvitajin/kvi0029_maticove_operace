@@ -13,7 +13,7 @@ int main() {
     }
 
     if (pismeno == 'S') {
-        //souborVetev();           //TODO
+        souborVetev();           //TODO
     } else if (pismeno == 'T') {
         //terminalVetev();       //TODO
     } else if (pismeno == 'X') {
@@ -22,7 +22,9 @@ int main() {
     } else {
         odkudCtu();
     }
-    velikostMatice(radku, sloupcu);
-    vytvorMatici(radku, sloupcu, matice);
+
+
+    /*velikostMatice(radku, sloupcu);
+    vytvorMatici(radku, sloupcu, matice);*/
     return 0;
 }
