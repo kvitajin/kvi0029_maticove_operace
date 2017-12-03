@@ -15,7 +15,7 @@ int main() {
     if (pismeno == 'S') {
         fileBranch();           //TODO
     } else if (pismeno == 'T') {
-        therminalBranch();       //TODO
+        terminalBranch();       //TODO
     } else if (pismeno == 'X') {
         footer();
         return 0;
@@ -25,6 +25,6 @@ int main() {
 
 
     /*velikostMatice(radku, sloupcu);
-    vytvorMatici(radku, sloupcu, matice);*/
+    makeMatrix(radku, sloupcu, matice);*/
     return 0;
 }

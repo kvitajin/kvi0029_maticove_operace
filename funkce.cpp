@@ -53,20 +53,21 @@ char odkudCtu(){
 }
 
 void velikostMatice(int &radku, int &sloupcu){
-        std::cout   <<  "Zadejte pozadovanou velikost leve strany matice"  <<  std::endl;
+        std::cout   <<  "Zadejte pozadovanou velikost LEVE strany matice"  <<  std::endl;
         std::cout   <<  "Zadejte pocet radku:"      <<  std::endl;
         std::cin    >>  radku;
         std::cout   <<  "Zadejte pocet sloupcu:"    <<  std::endl;
         std::cin    >>  sloupcu;
 
 }
-void vytvorMatici(const int radku, const int sloupcu, std::vector< std::vector <int> > &matice){
+void makeMatrix(const int radku, const int sloupcu, std::vector<std::vector<long double> > &matice){
         matice.resize((unsigned long)radku);
         for(int i = 0 ; i < radku ; ++i){
             matice[i].resize((unsigned long)sloupcu+1);
         }
+    //std::cout   <<  "vytvarim matici"   <<  std::endl;
 }
-std::string jmenoSouboru(){
+std::string filename(){
         std::string cesta;
         std::cout   <<  "Zadejte relativni cestu k souboru: "   <<  std::endl;
         std::cin    >>  cesta;
@@ -86,22 +87,35 @@ std::string overPriponu(std::string& jmeno){
     }
     return jmeno;
 }
-void parseSizeOfMatrixFromFile(std::string &radek, int &errFlag){
-    int tmp=0, i;
+void fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter){
+    int tmp=0, i, rows=0, columns=0, flag=0;
     for (i = 0; i < (int)radek.size(); ++i) {
-        if (std::cin.fail()){
+        if ((radek[i]>='0'   &&  radek[i]<='9')  ||
+            (radek[i]==' ' ||radek[i]==',')){
+        } else{
             ++errFlag;
             break;
         }
-        if (radek[i]==' '){
-            continue;
+        if (radek[i]==delimiter){
+            if (tmp){
+                columns=tmp;
+                tmp=0;
+                std::cout   <<  columns;
+                break;
+            } else{
+                rows=tmp;
+                tmp=0;
+                ++flag;
+                std::cout   <<  rows;
+                continue;
+            }
         }
         tmp*=10;
         tmp+=radek[i];
     }
 
 }
-int ctiSoubor(std::string& filename, int &errFlag){
+int fileRead(std::string &filename, int &errFlag, char &delimiter){
     std::string path=overPriponu(filename);
     std::ifstream read;
     read.open(path);
@@ -111,23 +125,53 @@ int ctiSoubor(std::string& filename, int &errFlag){
     }
     std::string radek;
     std::getline(read, radek);
-    parseSizeOfMatrixFromFile(radek, errFlag);
+    fileParseSizeOfMatrix(radek, errFlag, delimiter);
+
+}
+char fileDelimiterFunction(char &delimiter){
+    std::cout   <<  "========================="<< std::endl;
+    std::cout   <<  "Zadejte delimiter:"<< std::endl;
+    /*std::cin.clear();
+    std::cin    >>  std::noskipws    >>  delimiter  >>  std::skipws;*/
+    std::cin    >>  delimiter;
+    std::cout   <<  "========================="<< std::endl;
+    if (std::cin.fail()){
+
+    }
+    return delimiter;
 
 }
 int fileBranch(){
     int errFlag=0;
+    char delimiter;
     std::string name;
-    name=jmenoSouboru();
+    name= filename();
     name=overPriponu(name);
-    ctiSoubor(name, errFlag);
+    delimiter= fileDelimiterFunction(delimiter);
+    fileRead(name, errFlag, delimiter);
     std::cout << name;
 }                     //TODO
-int therminalBranch(){
+int terminalFillMatrix(std::vector< std::vector <long double> > &matice){
+    long double tmp;
+    std::cout   <<  "Zadejte matici vcetne prave strany (jen cisla) rovnice. \nPr.: matice 2x2\n1 2 3\n3 4 7\n";
+    std::cout   <<  "Vase cisla:"   <<  std::endl;
+    for (size_t i = 0; i < matice.size(); i++) {
+        for (size_t j = 0; j < matice[i].size(); j++) {
+            std::cin >> tmp;
+            if (std::cin.fail()){
+                return 1;
+            } else{
+                matice[i][j]=tmp;
+            }
+        }
+    }
+}
+int terminalBranch(){
     int rows=0, columns=0;
-    std::vector< std::vector <int> > matice;
+    std::vector< std::vector <long double> > matice;
     velikostMatice(rows, columns);
-    vytvorMatici(rows, columns, matice);
-        return 0;
+    makeMatrix(rows, columns, matice);
+    terminalFillMatrix(matice);
 }
 
 void footer(){
