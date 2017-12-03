@@ -13,11 +13,11 @@ int main() {
     }
 
     if (pismeno == 'S') {
-        souborVetev();           //TODO
+        fileBranch();           //TODO
     } else if (pismeno == 'T') {
-        //terminalVetev();       //TODO
+        therminalBranch();       //TODO
     } else if (pismeno == 'X') {
-        paticka();
+        footer();
         return 0;
     } else {
         odkudCtu();

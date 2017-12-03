@@ -11,7 +11,7 @@ void menu(){                                                    ///Funkce vypise
         std::cout   <<  "========================="<< std::endl;
         std::cout   <<  "Aplikace pro vypocet GEMu"<< std::endl;
         std::cout   <<  "========================="<< std::endl;
-        std::cout   <<  "Vzberte vstup:"<< std::endl;
+        std::cout   <<  "Vyberte vstup:"<< std::endl;
         std::cout   <<  "T - terminal"<< std::endl;
         std::cout   <<  "S - soubor"<< std::endl;
         std::cout   <<  "E - pro ukonceni programu"<< std::endl;
@@ -54,7 +54,7 @@ char odkudCtu(){
 
 void velikostMatice(int &radku, int &sloupcu){
         std::cout   <<  "Zadejte pozadovanou velikost leve strany matice"  <<  std::endl;
-        std::cout   <<  "zadejte pocet radku:"      <<  std::endl;
+        std::cout   <<  "Zadejte pocet radku:"      <<  std::endl;
         std::cin    >>  radku;
         std::cout   <<  "Zadejte pocet sloupcu:"    <<  std::endl;
         std::cin    >>  sloupcu;
@@ -82,30 +82,54 @@ std::string overPriponu(std::string& jmeno){
         }
     }
     if (!flagPripona){
-        jmeno+=".txt";
+        jmeno+=".csv";
     }
     return jmeno;
 }
-int ctiSoubor(std::string& jmeno, int &errFlag){
-    std::string cesta=overPriponu(jmeno);
-    std::ifstream ctu;
-    ctu.open(cesta);
-    if (!ctu.is_open()){
+void parseSizeOfMatrixFromFile(std::string &radek, int &errFlag){
+    int tmp=0, i;
+    for (i = 0; i < (int)radek.size(); ++i) {
+        if (std::cin.fail()){
+            ++errFlag;
+            break;
+        }
+        if (radek[i]==' '){
+            continue;
+        }
+        tmp*=10;
+        tmp+=radek[i];
+    }
+
+}
+int ctiSoubor(std::string& filename, int &errFlag){
+    std::string path=overPriponu(filename);
+    std::ifstream read;
+    read.open(path);
+    if (!read.is_open()){
         ++errFlag;
         return 1;
     }
+    std::string radek;
+    std::getline(read, radek);
+    parseSizeOfMatrixFromFile(radek, errFlag);
+
 }
-int souborVetev(){
+int fileBranch(){
     int errFlag=0;
-    std::string jmeno;
-    jmeno=jmenoSouboru();
-    jmeno=overPriponu(jmeno);
-    ctiSoubor(jmeno, errFlag);
-    std::cout << jmeno;
+    std::string name;
+    name=jmenoSouboru();
+    name=overPriponu(name);
+    ctiSoubor(name, errFlag);
+    std::cout << name;
 }                     //TODO
-int terminalVetev(){
+int therminalBranch(){
+    int rows=0, columns=0;
+    std::vector< std::vector <int> > matice;
+    velikostMatice(rows, columns);
+    vytvorMatici(rows, columns, matice);
         return 0;
 }
-void paticka(){
+
+void footer(){
         std::cout   <<  "Preji hezky den."   <<  std::endl;
 }

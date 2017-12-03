@@ -11,14 +11,14 @@
 void menu();
 //void otravnaHlavicka(char pismeno);
 char odkudCtu();
-void paticka();
+void footer();
 void velikostMatice(int &radku, int &sloupcu);
 void vytvorMatici(const int radku, const int sloupcu, std::vector< std::vector <int> > &matice);
 
 std::string jmenoSouboru();
 int ctiSoubor();
-int souborVetev();
-int terminalVetev();
+int fileBranch();
+int therminalBranch();
 
 
 
