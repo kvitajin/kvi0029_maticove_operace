@@ -8,14 +8,14 @@
 #include <fstream>
 
 void menu(){                                                    ///Funkce vypise prvotni hlavicku do terminalu
-        std::cout   <<  "========================="<< std::endl;
-        std::cout   <<  "Aplikace pro vypocet GEMu"<< std::endl;
-        std::cout   <<  "========================="<< std::endl;
+        std::cout   <<  "================================="<< std::endl;
+        std::cout   <<  "Aplikace pro vypoctz nad maticemi"<< std::endl;
+        std::cout   <<  "================================="<< std::endl;
         std::cout   <<  "Vyberte vstup:"<< std::endl;
         std::cout   <<  "T - terminal"<< std::endl;
         std::cout   <<  "S - soubor"<< std::endl;
         std::cout   <<  "E - pro ukonceni programu"<< std::endl;
-        std::cout   <<  "========================="<< std::endl;
+        std::cout   <<  "=================================="<< std::endl;
 
 }
 
@@ -129,12 +129,12 @@ int fileRead(std::string &filename, int &errFlag, char &delimiter){
 
 }
 char fileDelimiterFunction(char &delimiter){
-    std::cout   <<  "========================="<< std::endl;
+    std::cout   <<  "================================="<< std::endl;
     std::cout   <<  "Zadejte delimiter:"<< std::endl;
     /*std::cin.clear();
     std::cin    >>  std::noskipws    >>  delimiter  >>  std::skipws;*/
     std::cin    >>  delimiter;
-    std::cout   <<  "========================="<< std::endl;
+    std::cout   <<  "================================="<< std::endl;
     if (std::cin.fail()){
 
     }
@@ -176,4 +176,24 @@ int terminalBranch(){
 
 void footer(){
         std::cout   <<  "Preji hezky den."   <<  std::endl;
+}
+char whereToSaveFinalSolution(){
+    char tmp;
+    std::cout   <<  "================================="<< std::endl;
+    std::cout   <<  "Kde chcete vysledek?"<< std::endl;
+    std::cout   <<  "T - terminal"<< std::endl;
+    std::cout   <<  "S - soubor"<< std::endl;
+    std::cout   <<  "================================="<< std::endl;
+    std::cin    >>  tmp;
+    if (std::cin.fail()){
+        return 'X';
+    }
+    else if (tmp=='T'   ||  tmp=='t'){
+        return 'T';
+    }
+    else if (tmp=='S'   ||  tmp=='s'){
+        return 'S';
+    } else{
+        return 'X';
+    }
 }

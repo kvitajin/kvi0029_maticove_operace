@@ -22,7 +22,15 @@ int main() {
     } else {
         odkudCtu();
     }
-
+    pismeno=whereToSaveFinalSolution();
+    while (pismeno=='X'){
+        pismeno=whereToSaveFinalSolution();
+    }
+    if (pismeno == 'S') {
+        fileFinalSolution();           //TODO
+    } else if (pismeno == 'T') {
+        terminalFinalSolution();       //TODO
+    }
 
     /*velikostMatice(radku, sloupcu);
     makeMatrix(radku, sloupcu, matice);*/
