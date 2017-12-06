@@ -1,6 +1,4 @@
-//
-// Created by kvitajin on 23.11.17.
-//
+
 
 #ifndef SEM_2_FUNKCE_H
 #define SEM_2_FUNKCE_H
@@ -22,6 +20,7 @@ char        fileDelimiterFunction(char &delimiter);
 int         fileBranch();
 int         terminalFillMatrix(std::vector< std::vector <long double> > &matice);
 int         terminalBranch();
+void        printMatrix(std::vector< std::vector <long double> > &matice);
 
 
 

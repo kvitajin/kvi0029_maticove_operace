@@ -1,6 +1,4 @@
-//
-// Created by kvitajin on 6.12.17.
-//
+
 #include "funkce.h"
 #include <iostream>
 #include <vector>
@@ -28,9 +26,9 @@ char    whereToSaveFinalSolution(){
     }
 }
 
-void    erminalFinalSolution(std::string &out){
+/*void    terminalFinalSolution(std::string &out){
         std::cout   <<  out;
 }
 void    fileFinalSolution(std::string &out, std::string &outFilename){
                         //TODO
-}
+}*/

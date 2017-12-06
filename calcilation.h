@@ -1,6 +1,4 @@
-//
-// Created by kvitajin on 6.12.17.
-//
+
 
 #ifndef SEM_2_CALCILATION_H
 #define SEM_2_CALCILATION_H
