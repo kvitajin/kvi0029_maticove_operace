@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "funkce.h"
+#include "out.h"
 
 int main() {
     char pismeno;

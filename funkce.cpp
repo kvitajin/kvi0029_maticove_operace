@@ -177,23 +177,4 @@ int terminalBranch(){
 void footer(){
         std::cout   <<  "Preji hezky den."   <<  std::endl;
 }
-char whereToSaveFinalSolution(){
-    char tmp;
-    std::cout   <<  "================================="<< std::endl;
-    std::cout   <<  "Kde chcete vysledek?"<< std::endl;
-    std::cout   <<  "T - terminal"<< std::endl;
-    std::cout   <<  "S - soubor"<< std::endl;
-    std::cout   <<  "================================="<< std::endl;
-    std::cin    >>  tmp;
-    if (std::cin.fail()){
-        return 'X';
-    }
-    else if (tmp=='T'   ||  tmp=='t'){
-        return 'T';
-    }
-    else if (tmp=='S'   ||  tmp=='s'){
-        return 'S';
-    } else{
-        return 'X';
-    }
-}
+

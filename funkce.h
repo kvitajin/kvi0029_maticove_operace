@@ -22,11 +22,7 @@ char        fileDelimiterFunction(char &delimiter);
 int         fileBranch();
 int         terminalFillMatrix(std::vector< std::vector <long double> > &matice);
 int         terminalBranch();
-char         whereToSaveFinalSolution();
-void        terminalFinalSolution();
-void        fileFinalSolution();
-int         gem(std::vector< std::vector <long double> > &matice);              //TODO pridat druhou matici s vysledkem;
-int         determinant();
+
 
 
 
