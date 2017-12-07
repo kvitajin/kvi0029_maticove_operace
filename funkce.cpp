@@ -124,7 +124,7 @@ int fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<long double
         while (radek[j]!=delimiter){
             tmp*=10;
             tmp+=radek[j]-48;
-            if(j<(int)radek.length()){
+            if(j<(int)radek.length()-1){
                 ++j;
             } else{
                 break;
@@ -141,7 +141,7 @@ int fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<long double
 
 }
 
-int fileRead(std::string &filename, int &errFlag, char &delimiter, std::vector<std::vector<long double> > &matice){
+int fileRead(std::string &filename, int &errFlag, char &delimiter, std::vector<std::vector<long double> > &matice)  {
     std::string path=overPriponu(filename);
 
     int rows=0, columns=0;
@@ -157,8 +157,9 @@ int fileRead(std::string &filename, int &errFlag, char &delimiter, std::vector<s
     //std::cout   << "jsem zde";
     fileParseSizeOfMatrix(radek, errFlag, delimiter, rows, columns);
     //todo test funkce
-    std::getline(read, radek);      //radek odradkovani, nepouzije se
+    std::getline(read, radek);      ///radek odradkovani, nepouzije se
     makeMatrix(rows, columns, matice);
+
     int i=0;
     while (!read.eof()){
         std::getline(read, radek);
@@ -183,10 +184,9 @@ char fileDelimiterFunction(char &delimiter){        //TODO ws
 
 }
 
-int fileBranch(){
+int fileBranch(std::vector<std::vector<long double> > &matice){
     int errFlag=0;
     char delimiter;
-    std::vector<std::vector<long double> > matice;
     std::string name;
     name= filename();
     name=overPriponu(name);
@@ -211,9 +211,9 @@ int terminalFillMatrix(std::vector< std::vector <long double> > &matice){       
     }
     printMatrix(matice);
 }
-int terminalBranch(){
+int terminalBranch( std::vector< std::vector <long double> > &matice){
     int rows=0, columns=0;
-    std::vector< std::vector <long double> > matice;
+
     velikostMatice(rows, columns);
     makeMatrix(rows, columns, matice);
     terminalFillMatrix(matice);

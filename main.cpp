@@ -2,11 +2,12 @@
 #include <vector>
 #include "funkce.h"
 #include "out.h"
+#include "calcilation.h"
 
 int main() {
     char pismeno;
     int radku=0, sloupcu=0;
-    std::vector< std::vector <int> > matice;
+    std::vector< std::vector <long double> > matice;
     menu();
     pismeno=odkudCtu();
     while (pismeno=='E') {
@@ -14,9 +15,10 @@ int main() {
     }
 
     if (pismeno == 'S') {
-        fileBranch();           //TODO
+        fileBranch(matice);           //TODO
+        det(matice);
     } else if (pismeno == 'T') {
-        terminalBranch();       //TODO
+        terminalBranch(matice);       //TODO
     } else if (pismeno == 'X') {
         footer();
         return 0;
