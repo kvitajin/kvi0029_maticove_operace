@@ -7,7 +7,7 @@
 
 void menu(){                                                    ///Funkce vypise prvotni hlavicku do terminalu
         std::cout   <<  "================================="<< std::endl;
-        std::cout   <<  "Aplikace pro vypoctz nad maticemi"<< std::endl;
+        std::cout   <<  "Aplikace pro vypocty nad maticemi"<< std::endl;
         std::cout   <<  "================================="<< std::endl;
         std::cout   <<  "Vyberte vstup:"<< std::endl;
         std::cout   <<  "T - terminal"<< std::endl;
@@ -17,7 +17,7 @@ void menu(){                                                    ///Funkce vypise
 
 }
 
-char odkudCtu(){
+char    odkudCtu(){
         char pismeno;
         std::cin    >>  pismeno;
 
@@ -40,7 +40,7 @@ char odkudCtu(){
         }
 }
 
-void velikostMatice(int &radku, int &sloupcu){      //todo rename
+void    velikostMatice(int &radku, int &sloupcu){      //todo rename
         std::cout   <<  "Zadejte pozadovanou velikost LEVE strany matice"  <<  std::endl;
         std::cout   <<  "Zadejte pocet radku:"      <<  std::endl;
         std::cin    >>  radku;
@@ -49,7 +49,7 @@ void velikostMatice(int &radku, int &sloupcu){      //todo rename
 
 }
 
-void makeMatrix(const int radku, const int sloupcu, std::vector<std::vector<long double> > &matice){
+void    makeMatrix(const int radku, const int sloupcu, std::vector<std::vector<long double> > &matice){
         matice.resize((unsigned long)radku);
         for(int i = 0 ; i < radku ; ++i){
             matice[i].resize((unsigned long)sloupcu+1);
@@ -79,9 +79,9 @@ std::string overPriponu(std::string& jmeno){
     return jmeno;
 }
 
-void fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter, int &rows, int &columns){
+void    fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter, int &rows, int &columns){
     int tmp=0, i, flag=0;
-    std::cout   <<  "jsem zde 1 " <<  std::endl;
+    //std::cout   <<  "jsem zde 1 " <<  std::endl;
     for (i = 0; i < (int)radek.size(); ++i) {
         if ((radek[i]>='0'   &&  radek[i]<='9')  ||
             (radek[i]==' ' ||radek[i]==',')){
@@ -110,7 +110,7 @@ void fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter, in
 
 }
 
-int fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<long double> > &matice, const int i, char &delimiter){
+int     fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<long double> > &matice, const int i, char &delimiter){
     int tmp=0, pos=0, sign=0;
     std::cout   <<  radek   <<  std::endl;
     for (int j = 0; j < (int)radek.length(); ++j) {
@@ -141,7 +141,7 @@ int fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<long double
 
 }
 
-int fileRead(std::string &filename, int &errFlag, char &delimiter, std::vector<std::vector<long double> > &matice)  {
+int     fileRead(std::string &filename, int &errFlag, char &delimiter, std::vector<std::vector<long double> > &matice)  {
     std::string path=overPriponu(filename);
 
     int rows=0, columns=0;
@@ -170,7 +170,7 @@ int fileRead(std::string &filename, int &errFlag, char &delimiter, std::vector<s
     return 0;
 }
 
-char fileDelimiterFunction(char &delimiter){        //TODO ws
+char    fileDelimiterFunction(char &delimiter){        //TODO ws
     std::cout   <<  "================================="<< std::endl;
     std::cout   <<  "Zadejte delimiter:"<< std::endl;
     /*std::cin.clear();
@@ -184,7 +184,7 @@ char fileDelimiterFunction(char &delimiter){        //TODO ws
 
 }
 
-int fileBranch(std::vector<std::vector<long double> > &matice){
+int     fileBranch(std::vector<std::vector<long double> > &matice){
     int errFlag=0;
     char delimiter;
     std::string name;
@@ -195,7 +195,8 @@ int fileBranch(std::vector<std::vector<long double> > &matice){
 
     //std::cout << name;
 }                     //TODO
-int terminalFillMatrix(std::vector< std::vector <long double> > &matice){       //TODO prekopat
+
+int     terminalFillMatrix(std::vector< std::vector <long double> > &matice){       //TODO prekopat
     long double tmp;
     std::cout   <<  "Zadejte matici vcetne prave strany (jen cisla) rovnice. \nPr.: matice 2x2\n1 2 3\n3 4 7\n";
     std::cout   <<  "Vase cisla:"   <<  std::endl;
@@ -211,7 +212,8 @@ int terminalFillMatrix(std::vector< std::vector <long double> > &matice){       
     }
     printMatrix(matice);
 }
-int terminalBranch( std::vector< std::vector <long double> > &matice){
+
+int     terminalBranch( std::vector< std::vector <long double> > &matice){
     int rows=0, columns=0;
 
     velikostMatice(rows, columns);
@@ -219,11 +221,11 @@ int terminalBranch( std::vector< std::vector <long double> > &matice){
     terminalFillMatrix(matice);
 }
 
-void footer(){
+void    footer(){
         std::cout   <<  "Preji hezky den."   <<  std::endl;
 }
 
-void printMatrix(std::vector< std::vector <long double> > &matice){
+void    printMatrix(std::vector< std::vector <long double> > &matice){
     std::cout <<    "Vase matice je: "  <<  std::endl;
     for (int i = 0; i < matice.size(); i++)
     {

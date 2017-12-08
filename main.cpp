@@ -31,7 +31,7 @@ int main() {
         pismeno=whereToSaveFinalSolution();
     }
     if (pismeno == 'S') {
-        //fileFinalSolution();           //TODO
+        //fileFinalSolution();
     } else if (pismeno == 'T') {
     }*/
 
