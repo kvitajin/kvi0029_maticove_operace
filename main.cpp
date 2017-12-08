@@ -6,8 +6,10 @@
 
 int main() {
     char pismeno;
+    long int determ;
     int radku=0, sloupcu=0;
-    std::vector< std::vector <long double> > matice;
+    std::vector< std::vector <double> > matice;
+    std::vector<double > roots;
     menu();
     pismeno=odkudCtu();
     while (pismeno=='E') {
@@ -15,10 +17,15 @@ int main() {
     }
 
     if (pismeno == 'S') {
-        fileBranch(matice);           //TODO
-        det(matice);
+        fileBranch(matice);
+        gem(matice);
+        determinant(matice, determ);
+        roots(matice, roots);
     } else if (pismeno == 'T') {
         terminalBranch(matice);       //TODO
+        gem(matice);
+        determinant(matice, determ);
+        roots(matice, roots);
     } else if (pismeno == 'X') {
         footer();
         return 0;

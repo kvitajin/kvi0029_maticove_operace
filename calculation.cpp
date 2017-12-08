@@ -2,25 +2,21 @@
 #include <vector>
 #include <iostream>
 #include "funkce.h"
+#include <iomanip>
+using namespace std;
 
-int gem(std::vector< std::vector <long double> > &matice){}              //TODO pridat druhou matici s vysledkem;
-int determinant(){}
-int det(std::vector<std::vector<long double> > &matice) {
+int gem(std::vector< std::vector <double> > &matice){
+
     auto n = (int)matice.size();
 
-    for (int col = 0; col < n; ++col) {
-        std::cout << "Column: " << col << "\n";
+    for (int a = 0; a < n; ++a) {
         printMatrix(matice);
         bool found = false;
-        for (int row = col; row < n; ++row) {
-            if (matice[row][col]) {
-                std::cout << "Got non-zero value for row " << row << " and col " << col << "\n";
-                if (row != col) {
-                    std::cout << "(1) Swapping rows " << col << " and " << row << "\n";
-                    matice[row].swap(matice[col]);
+        for (int b = a; b < n; ++b) {
+            if (matice[b][a]) {
+                if (b != a) {
+                    matice[b].swap(matice[a]);
                     printMatrix(matice);
-                } else {
-                    std::cout << "Not swapping rows\n";
                 }
                 found = true;
                 break;
@@ -28,34 +24,115 @@ int det(std::vector<std::vector<long double> > &matice) {
         }
 
         if (!found) {
-            std::cout << "Did not find a non-zero row. Column: " << col << "\n";
             return 0;
         }
 
-        for (int row = col + 1; row < n; ++row) {
+        for (int b = a + 1; b < n; ++b) {
             while (true) {
-                long double del = matice[row][col] / matice[col][col];
-                std::cout << "del: " << del << "\n";
-                for (int j = col; j < n; ++j) {
-                    matice[row][j] -= del * matice[col][j];
+                double del = matice[b][a] / matice[a][a];                               ///coefficient for making triangle shape
+                for (int c = a; c < n+1; ++c) {                                         ///n+1 for matching with right side of matrix
+                    matice[b][c] -= del * matice[a][c];
                 }
-                if (matice[row][col] == 0) {
+                if (matice[b][a] == 0) {                                                ///after previews loop it have to be 0, if it isn't
                     break;
                 } else {
-                    std::cout << "(2) Swapping rows " << col << " and " << row << "\n";
-                    matice[row].swap(matice[col]);
+                    matice[b].swap(matice[a]);
                     printMatrix(matice);
                 }
             }
         }
     }
-    printMatrix(matice);
-    long determ = 1;
-
+}
+long int determinant(std::vector< std::vector <double> > &matice, long int &determ){
+    determ = 1;
+    auto n= (int)matice.size();
     for(int i = 0; i < n; ++i) {
         determ *= matice[i][i];
     }
-    std::cout   <<  abs(determ);
-
     return abs(determ);
+}
+int det(std::vector<std::vector<double> > &matice) {
+
+    auto n = (int)matice.size();
+
+    for (int a = 0; a < n; ++a) {
+        printMatrix(matice);
+        bool found = false;
+        for (int b = a; b < n; ++b) {
+            if (matice[b][a]) {
+                if (b != a) {
+                    matice[b].swap(matice[a]);
+                    printMatrix(matice);
+                }
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            return 0;
+        }
+
+        for (int b = a + 1; b < n; ++b) {
+            while (true) {
+                double del = matice[b][a] / matice[a][a];                               ///coefficient for making triangle shape
+                for (int c = a; c < n+1; ++c) {                                         ///n+1 for matching with right side of matrix
+                    matice[b][c] -= del * matice[a][c];
+                }
+                if (matice[b][a] == 0) {                                                ///after previews loop it have to be 0, if it isn't
+                    break;
+                } else {
+                    matice[b].swap(matice[a]);
+                    printMatrix(matice);
+                }
+            }
+        }
+    }
+
+    std::cout   <<  "koreny "    << n   <<  std::endl;
+    --n;
+    std::vector<double > roots;
+    double tmp;
+    int i=0;
+    for (i = 0; i < matice.size()-1; ++i) {
+        tmp=matice[n-i][n+1]/matice[n-i][n-i];                                            /// making root and beging on the end
+        roots.push_back(tmp);
+        std::cout   <<  "tmp "   <<  tmp    <<    " "  <<  n-i  << std::endl;
+        for (int j = i+1; j < matice.size(); ++j) {
+            matice[n-j][n+1]-=matice[n-j][n-i]*tmp;
+            matice[n-j][n-i]=0;
+
+        }
+    }
+    tmp=matice[0][n+1]/matice[0][0];                                            /// making root and beging on the end
+    roots.push_back(tmp);
+    printMatrix(matice);
+    int g=(int)roots.size();
+    for (int k = 0; k < g+1; ++k) {
+        std::cout   <<  roots[g-k] <<   " ";
+    }
+}
+int roots(std::vector< std::vector <double> > &matice,std::vector<double > &roots){
+    int n=(int)matice.size()-1;
+
+
+    double tmp;
+    int i=0;
+    for (i = 0; i < matice.size()-1; ++i) {
+        tmp=matice[n-i][n+1]/matice[n-i][n-i];                                            /// making root and beging on the end
+        roots.push_back(tmp);
+        //std::cout   <<  "tmp "   <<  tmp    <<    " "  <<  n-i  << std::endl;
+        for (int j = i+1; j < matice.size(); ++j) {
+            matice[n-j][n+1]-=matice[n-j][n-i]*tmp;
+            matice[n-j][n-i]=0;
+
+        }
+    }
+    tmp=matice[0][n+1]/matice[0][0];                                            /// making root and beging on the end
+    roots.push_back(tmp);
+    printMatrix(matice);
+    int g=(int)roots.size();
+    /*for (int k = 0; k < g+1; ++k) {
+        std::cout   <<  roots[g-k] <<   " ";
+    }*/
 }
