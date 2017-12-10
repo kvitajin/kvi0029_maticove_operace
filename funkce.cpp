@@ -1,10 +1,10 @@
 
 #include "funkce.h"
 #include <iostream>
-
+#include <iomanip>
 #include <fstream>
 
-void menu(){                                                    ///Funkce vypise prvotni hlavicku do terminalu
+void    menu(){                                                    ///Funkce vypise prvotni hlavicku do terminalu
         std::cout   <<  "================================="<< std::endl;
         std::cout   <<  "Aplikace pro vypocty nad maticemi"<< std::endl;
         std::cout   <<  "================================="<< std::endl;
@@ -53,10 +53,9 @@ void    makeMatrix(const int radku, const int sloupcu, std::vector<std::vector<d
         for(int i = 0 ; i < radku ; ++i){
             matrix[i].resize((unsigned long)sloupcu+1);
         }
-    //std::cout   <<  "vytvarim matici"   <<  std::endl;
 }
 
-std::string filename(){
+std::string inFileName(){
         std::string cesta;
         std::cout   <<  "Zadejte relativni cestu k souboru: "   <<  std::endl;
         std::cin    >>  cesta;
@@ -83,7 +82,6 @@ std::string overPriponu(std::string& jmeno){
 
 void    fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter, int &rows, int &columns){
     int tmp=0, i, flag=0;
-    //std::cout   <<  "jsem zde 1 " <<  std::endl;
     for (i = 0; i < (int)radek.size(); ++i) {
         if ((radek[i]>='0'   &&  radek[i]<='9')  ||
             (radek[i]==' ' ||radek[i]==',')){
@@ -94,26 +92,23 @@ void    fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter,
         if (radek[i]==delimiter){
             if (flag){
                 columns=tmp;
-                //std::cout   <<  columns;
                 break;
             } else{
                 rows=tmp;
                 tmp=0;
                 ++flag;
-                //td::cout   <<  rows;
                 continue;
             }
         }
         tmp*=10;
         tmp+=radek[i]-48;
     }
-    //std::cout   <<  "column "    <<  columns    <<  " rows "    <<  rows    <<  std::endl;
 
 }
 
 int     fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<double> > &matrix, const int i, char &delimiter){
     int tmp=0, pos=0, sign=0;
-    std::cout   <<  radek   <<  std::endl;
+    //std::cout   <<  radek   <<  std::endl;
     for (int j = 0; j < (int)radek.length(); ++j) {
         if (radek[j]==delimiter){
             continue;
@@ -167,7 +162,7 @@ int     fileRead(std::string &filename, int &errFlag, char &delimiter, std::vect
         fileFillLineOfMatrix(radek, matrix, i, delimiter);
         ++i;
     }
-    printMatrix(matrix);
+    //printMatrix(matrix);
     return 0;
 }
 
@@ -189,7 +184,7 @@ int     fileBranch(std::vector<std::vector<double> > &matrix){
     int errFlag=0;
     char delimiter;
     std::string name;
-    name= filename();
+    name= inFileName();
     name=overPriponu(name);
     delimiter= fileDelimiterFunction(delimiter);
     fileRead(name, errFlag, delimiter, matrix);
@@ -227,7 +222,8 @@ void    footer(){
 }
 
 void    printMatrix(std::vector< std::vector <double> > &matrix){
-    std::cout <<    "Vase matice je: "  <<  std::endl;
+    std::cout   <<    "Vase matice je: "  <<  std::endl;
+    std::cout   <<  std::setprecision(3);
     for (auto &i : matrix) {
         for (int j = 0; j < i.size(); j++)
         {
@@ -240,11 +236,11 @@ void    printMatrix(std::vector< std::vector <double> > &matrix){
     }
 }
 
-std::string fileName(){
+std::string outFileName(){
     std::string filename="a";
-    std::cout   <<  "================================="<< std::endl;
-    std::cout   <<  "Zadejte jmeno souboru bez pripony"<< std::endl;
-    std::cout   <<  "================================="<< std::endl;
+    std::cout   <<  "============================================"<< std::endl;
+    std::cout   <<  "Zadejte jmeno vystupniho souboru bez pripony"<< std::endl;
+    std::cout   <<  "============================================"<< std::endl;
     std::cin    >>  filename;
     if (filename.length()<1){
         return "ecrtmek";

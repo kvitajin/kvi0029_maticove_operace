@@ -6,13 +6,13 @@
 
 int main() {
     long int determ;
-    int radku=0, sloupcu=0, flag=0;
+    int radku=0, sloupcu=0, flag=0, tmp=0;
     std::string out;
     std::vector< std::vector <double> > matrix;
     std::vector< std::vector <double> > triangle;
     std::vector<double > roots;
 
-    struct info{
+    struct info{                                        ///Here the basic programme information is saved
         char read='E';
         char where='X';
         int what=0;
@@ -42,7 +42,7 @@ int main() {
     }
     if(Info.where=='C'||Info.where=='H') {
         while (Info.outFilename == "ecrtmek") {
-            Info.outFilename = fileName();
+            Info.outFilename = outFileName();
         }
     }
     if (Info.read == 'S') {
@@ -63,15 +63,18 @@ int main() {
     } else {
         return 1;
     }
+    prepareString(out, Info.where, Info.what, determ, triangle, matrix, roots);
 
-    /*if (Info.where == 'H') {
-        fileFinalHTMLSolution(out, Info.outFilename);
+    if (Info.where == 'T') {
+        std::cout   <<  out;
+        return 0;
 
-    } else if (Info.where == 'T') {
-        terminalFinalSolution();
-    } else if (Info.where == 'C') {
-        fileFinalCSVSolution(out, Info.outFilename);
-    }*/
+    } else if (Info.where == 'C' || Info.where=='H') {
+        tmp=makeFinalSolution(out, Info.outFilename, Info.where);
+        return tmp;
+    }
+
+
 
     return 0;
 }
