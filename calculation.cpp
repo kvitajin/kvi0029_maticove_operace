@@ -10,13 +10,13 @@ int gem(std::vector< std::vector <double> > &matice){
     auto n = (int)matice.size();
 
     for (int a = 0; a < n; ++a) {
-        printMatrix(matice);
+        //printMatrix(matice);
         bool found = false;
         for (int b = a; b < n; ++b) {
             if (matice[b][a]) {
                 if (b != a) {
                     matice[b].swap(matice[a]);
-                    printMatrix(matice);
+                    //printMatrix(matice);
                 }
                 found = true;
                 break;
@@ -37,32 +37,32 @@ int gem(std::vector< std::vector <double> > &matice){
                     break;
                 } else {
                     matice[b].swap(matice[a]);
-                    printMatrix(matice);
+                    //printMatrix(matice);
                 }
             }
         }
     }
 }
-long int determinant(std::vector< std::vector <double> > &matice, long int &determ){
+long int determinant(std::vector< std::vector <double> > &matrix, long int &determ){
     determ = 1;
-    auto n= (int)matice.size();
+    auto n= (int)matrix.size();
     for(int i = 0; i < n; ++i) {
-        determ *= matice[i][i];
+        determ *= matrix[i][i];
     }
     return abs(determ);
 }
-int det(std::vector<std::vector<double> > &matice) {
+int det(std::vector<std::vector<double> > &matrix) {
 
-    auto n = (int)matice.size();
+    auto n = (int)matrix.size();
 
     for (int a = 0; a < n; ++a) {
-        printMatrix(matice);
+        printMatrix(matrix);
         bool found = false;
         for (int b = a; b < n; ++b) {
-            if (matice[b][a]) {
+            if (matrix[b][a]) {
                 if (b != a) {
-                    matice[b].swap(matice[a]);
-                    printMatrix(matice);
+                    matrix[b].swap(matrix[a]);
+                    printMatrix(matrix);
                 }
                 found = true;
                 break;
@@ -75,15 +75,15 @@ int det(std::vector<std::vector<double> > &matice) {
 
         for (int b = a + 1; b < n; ++b) {
             while (true) {
-                double del = matice[b][a] / matice[a][a];                               ///coefficient for making triangle shape
+                double del = matrix[b][a] / matrix[a][a];                               ///coefficient for making triangle shape
                 for (int c = a; c < n+1; ++c) {                                         ///n+1 for matching with right side of matrix
-                    matice[b][c] -= del * matice[a][c];
+                    matrix[b][c] -= del * matrix[a][c];
                 }
-                if (matice[b][a] == 0) {                                                ///after previews loop it have to be 0, if it isn't
+                if (matrix[b][a] == 0) {                                                ///after previews loop it have to be 0, if it isn't
                     break;
                 } else {
-                    matice[b].swap(matice[a]);
-                    printMatrix(matice);
+                    matrix[b].swap(matrix[a]);
+                    printMatrix(matrix);
                 }
             }
         }
@@ -94,45 +94,63 @@ int det(std::vector<std::vector<double> > &matice) {
     std::vector<double > roots;
     double tmp;
     int i=0;
-    for (i = 0; i < matice.size()-1; ++i) {
-        tmp=matice[n-i][n+1]/matice[n-i][n-i];                                            /// making root and beging on the end
+    for (i = 0; i < matrix.size()-1; ++i) {
+        tmp=matrix[n-i][n+1]/matrix[n-i][n-i];                                            /// making root and beging on the end
         roots.push_back(tmp);
         std::cout   <<  "tmp "   <<  tmp    <<    " "  <<  n-i  << std::endl;
-        for (int j = i+1; j < matice.size(); ++j) {
-            matice[n-j][n+1]-=matice[n-j][n-i]*tmp;
-            matice[n-j][n-i]=0;
+        for (int j = i+1; j < matrix.size(); ++j) {
+            matrix[n-j][n+1]-=matrix[n-j][n-i]*tmp;
+            matrix[n-j][n-i]=0;
 
         }
     }
-    tmp=matice[0][n+1]/matice[0][0];                                            /// making root and beging on the end
+    tmp=matrix[0][n+1]/matrix[0][0];                                            /// making root and beging on the end
     roots.push_back(tmp);
-    printMatrix(matice);
-    int g=(int)roots.size();
+    printMatrix(matrix);
+    auto g=(int)roots.size();
     for (int k = 0; k < g+1; ++k) {
         std::cout   <<  roots[g-k] <<   " ";
     }
 }
-int roots(std::vector< std::vector <double> > &matice,std::vector<double > &roots){
-    int n=(int)matice.size()-1;
+int root    (std::vector< std::vector <double> > &matrix,std::vector<double > &roots){
+    int n=(int)matrix.size()-1;
 
 
     double tmp;
     int i=0;
-    for (i = 0; i < matice.size()-1; ++i) {
-        tmp=matice[n-i][n+1]/matice[n-i][n-i];                                            /// making root and beging on the end
+    for (i = 0; i < matrix.size()-1; ++i) {
+        tmp=matrix[n-i][n+1]/matrix[n-i][n-i];                                            /// making root and beging on the end
         roots.push_back(tmp);
         //std::cout   <<  "tmp "   <<  tmp    <<    " "  <<  n-i  << std::endl;
-        for (int j = i+1; j < matice.size(); ++j) {
-            matice[n-j][n+1]-=matice[n-j][n-i]*tmp;
-            matice[n-j][n-i]=0;
+        for (int j = i+1; j < matrix.size(); ++j) {
+            matrix[n-j][n+1]-=matrix[n-j][n-i]*tmp;
+            matrix[n-j][n-i]=0;
 
         }
     }
-    tmp=matice[0][n+1]/matice[0][0];                                            /// making root and beging on the end
+    tmp=matrix[0][n+1]/matrix[0][0];                                            /// making root and beging on the end
     roots.push_back(tmp);
-    printMatrix(matice);
-    int g=(int)roots.size();
-    /*for (int k = 0; k < g+1; ++k) {
+    printMatrix(matrix);
+    /*auto g=(int)roots.size();
+    for (int k = 0; k < g+1; ++k) {
         std::cout   <<  roots[g-k] <<   " ";
     }*/
+}
+int whatToSave(){
+    int tmp;
+    std::cout   <<  "================================="<< std::endl;
+    std::cout   <<  "Co chcete ulozit?"<< std::endl;
+    std::cout   <<  "Pro kombinace cisla scitejte"<< std::endl;
+    std::cout   <<  "1 - GEM"<< std::endl;
+    std::cout   <<  "2 - Determinant"<< std::endl;
+    std::cout   <<  "4 - Koreny"<< std::endl;
+    std::cout   <<  "================================="<< std::endl;
+    std::cin    >>  tmp;
+    if (std::cin.fail() ||
+        tmp<1           ||
+        tmp>7){
+        return 0;
+    } else{
+        return tmp;
+    }
 }

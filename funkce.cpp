@@ -1,8 +1,7 @@
 
 #include "funkce.h"
 #include <iostream>
-#include <vector>
-#include <cstdlib>
+
 #include <fstream>
 
 void menu(){                                                    ///Funkce vypise prvotni hlavicku do terminalu
@@ -40,8 +39,8 @@ char    odkudCtu(){
         }
 }
 
-void    velikostMatice(int &radku, int &sloupcu){      //todo rename
-        std::cout   <<  "Zadejte pozadovanou velikost LEVE strany matice"  <<  std::endl;
+void    velikostMatice(int &radku, int &sloupcu){
+        std::cout   <<  "Zadejte pozadovanou velikost LEVE strany matrix"  <<  std::endl;
         std::cout   <<  "Zadejte pocet radku:"      <<  std::endl;
         std::cin    >>  radku;
         std::cout   <<  "Zadejte pocet sloupcu:"    <<  std::endl;
@@ -49,10 +48,10 @@ void    velikostMatice(int &radku, int &sloupcu){      //todo rename
 
 }
 
-void    makeMatrix(const int radku, const int sloupcu, std::vector<std::vector<double> > &matice){
-        matice.resize((unsigned long)radku);
+void    makeMatrix(const int radku, const int sloupcu, std::vector<std::vector<double> > &matrix){
+        matrix.resize((unsigned long)radku);
         for(int i = 0 ; i < radku ; ++i){
-            matice[i].resize((unsigned long)sloupcu+1);
+            matrix[i].resize((unsigned long)sloupcu+1);
         }
     //std::cout   <<  "vytvarim matici"   <<  std::endl;
 }
@@ -65,17 +64,20 @@ std::string filename(){
 }
 
 std::string overPriponu(std::string& jmeno){
-    bool flagPripona= false;
+    bool *flagPripona;                                      ///dynamic allocated variable, because I can
+    flagPripona=new bool[1];
+    flagPripona[0]=false;
     for (int i = 1; i < (int)jmeno.length(); ++i) {         //preskocenim nulteho znaku se vyhnu
         if (((jmeno[i-1]>='a'    &&  jmeno[i-1]<='z')    ||
              (jmeno[i-1]>='A'    &&  jmeno[i-1]<='Z'))   &&
               jmeno[i]=='.' ) {
-            flagPripona= true;
+            flagPripona[0]= true;
         }
     }
-    if (!flagPripona){
+    if (!flagPripona[0]){
         jmeno+=".csv";
     }
+    delete[]flagPripona;
     return jmeno;
 }
 
@@ -92,7 +94,6 @@ void    fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter,
         if (radek[i]==delimiter){
             if (flag){
                 columns=tmp;
-                tmp=0;
                 //std::cout   <<  columns;
                 break;
             } else{
@@ -110,7 +111,7 @@ void    fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter,
 
 }
 
-int     fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<double> > &matice, const int i, char &delimiter){
+int     fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<double> > &matrix, const int i, char &delimiter){
     int tmp=0, pos=0, sign=0;
     std::cout   <<  radek   <<  std::endl;
     for (int j = 0; j < (int)radek.length(); ++j) {
@@ -134,14 +135,14 @@ int     fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<double>
             tmp*=-1;
             sign=0;
         }
-        matice[i][pos]=tmp;
+        matrix[i][pos]=tmp;
         tmp=0;
         ++pos;
     }
 
 }
 
-int     fileRead(std::string &filename, int &errFlag, char &delimiter, std::vector<std::vector<double> > &matice)  {
+int     fileRead(std::string &filename, int &errFlag, char &delimiter, std::vector<std::vector<double> > &matrix)  {
     std::string path=overPriponu(filename);
 
     int rows=0, columns=0;
@@ -156,17 +157,17 @@ int     fileRead(std::string &filename, int &errFlag, char &delimiter, std::vect
     std::getline(read, radek);
     //std::cout   << "jsem zde";
     fileParseSizeOfMatrix(radek, errFlag, delimiter, rows, columns);
-    //todo test funkce
+
     std::getline(read, radek);      ///radek odradkovani, nepouzije se
-    makeMatrix(rows, columns, matice);
+    makeMatrix(rows, columns, matrix);
 
     int i=0;
     while (!read.eof()){
         std::getline(read, radek);
-        fileFillLineOfMatrix(radek, matice, i, delimiter);
+        fileFillLineOfMatrix(radek, matrix, i, delimiter);
         ++i;
     }
-    printMatrix(matice);
+    printMatrix(matrix);
     return 0;
 }
 
@@ -184,58 +185,70 @@ char    fileDelimiterFunction(char &delimiter){        //TODO ws
 
 }
 
-int     fileBranch(std::vector<std::vector<double> > &matice){
+int     fileBranch(std::vector<std::vector<double> > &matrix){
     int errFlag=0;
     char delimiter;
     std::string name;
     name= filename();
     name=overPriponu(name);
     delimiter= fileDelimiterFunction(delimiter);
-    fileRead(name, errFlag, delimiter, matice);
+    fileRead(name, errFlag, delimiter, matrix);
 
     //std::cout << name;
-}                     //TODO
+}
 
-int     terminalFillMatrix(std::vector< std::vector <double> > &matice){       //TODO prekopat
-    long double tmp;
-    std::cout   <<  "Zadejte matici vcetne prave strany (jen cisla) rovnice. \nPr.: matice 2x2\n1 2 3\n3 4 7\n";
+int     terminalFillMatrix(std::vector< std::vector <double> > &matrix){
+    double tmp;
+    std::cout   <<  "Zadejte matici vcetne prave strany (jen cisla) rovnice. \nPr.: matrix 2x2\n1 2 3\n3 4 7\n";
     std::cout   <<  "Vase cisla:"   <<  std::endl;
-    for (size_t i = 0; i < matice.size(); i++) {
-        for (size_t j = 0; j < matice[i].size(); j++) {
+    for (auto &i : matrix) {
+        for (double &j : i) {
             std::cin >> tmp;
             if (std::cin.fail()){
                 return 1;
             } else{
-                matice[i][j]=tmp;
+                j =tmp;
             }
         }
     }
-    printMatrix(matice);
+    printMatrix(matrix);
 }
 
-int     terminalBranch( std::vector< std::vector <double> > &matice){
+int     terminalBranch( std::vector< std::vector <double> > &matrix){
     int rows=0, columns=0;
 
     velikostMatice(rows, columns);
-    makeMatrix(rows, columns, matice);
-    terminalFillMatrix(matice);
+    makeMatrix(rows, columns, matrix);
+    terminalFillMatrix(matrix);
 }
 
 void    footer(){
         std::cout   <<  "Preji hezky den."   <<  std::endl;
 }
 
-void    printMatrix(std::vector< std::vector <double> > &matice){
+void    printMatrix(std::vector< std::vector <double> > &matrix){
     std::cout <<    "Vase matice je: "  <<  std::endl;
-    for (int i = 0; i < matice.size(); i++)
-    {
-        for (int j = 0; j < matice[i].size(); j++)
+    for (auto &i : matrix) {
+        for (int j = 0; j < i.size(); j++)
         {
-            if (j==matice[i].size()-1){
+            if (j== i.size()-1){
                 std::cout   <<  "|\t";
             }
-            std::cout   <<  matice[i][j] <<  "\t\t";
+            std::cout   << i[j] <<  "\t\t";
         }
         std::cout   <<  std::endl;
+    }
+}
+
+std::string fileName(){
+    std::string filename="a";
+    std::cout   <<  "================================="<< std::endl;
+    std::cout   <<  "Zadejte jmeno souboru bez pripony"<< std::endl;
+    std::cout   <<  "================================="<< std::endl;
+    std::cin    >>  filename;
+    if (filename.length()<1){
+        return "ecrtmek";
+    } else{
+        return filename;
     }
 }
