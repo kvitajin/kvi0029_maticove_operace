@@ -34,16 +34,23 @@ char    odkudCtu(){
             return 'X';
         }
         else {
-            std::cout   <<  "Nezadal jste pismeno." <<  std::endl;
+            std::cout   <<  "================================="<< std::endl;
+            std::cout   <<  "Nezadal jste validni pismeno." <<  std::endl;
+            std::cout   <<  "================================="<< std::endl;
+
             return 'E';
         }
 }
 
 void    velikostMatice(int &radku, int &sloupcu){
+        std::cout   <<  "==============================================="<< std::endl;
         std::cout   <<  "Zadejte pozadovanou velikost LEVE strany matrix"  <<  std::endl;
         std::cout   <<  "Zadejte pocet radku:"      <<  std::endl;
+        std::cout   <<  "==============================================="<< std::endl;
         std::cin    >>  radku;
+        std::cout   <<  "==============================================="<< std::endl;
         std::cout   <<  "Zadejte pocet sloupcu:"    <<  std::endl;
+        std::cout   <<  "==============================================="<< std::endl;
         std::cin    >>  sloupcu;
 
 }
@@ -57,8 +64,10 @@ void    makeMatrix(const int radku, const int sloupcu, std::vector<std::vector<d
 
 std::string inFileName(){
         std::string cesta;
-        std::cout   <<  "Zadejte relativni cestu k souboru: "   <<  std::endl;
-        std::cin    >>  cesta;
+    std::cout   <<  "=================================="<< std::endl;
+    std::cout   <<  "Zadejte relativni cestu k souboru: "   <<  std::endl;
+    std::cout   <<  "=================================="<< std::endl;
+    std::cin    >>  cesta;
         return cesta;
 }
 
@@ -194,8 +203,10 @@ int     fileBranch(std::vector<std::vector<double> > &matrix){
 
 int     terminalFillMatrix(std::vector< std::vector <double> > &matrix){
     double tmp;
+    std::cout   <<  "======================================================"<< std::endl;
     std::cout   <<  "Zadejte matici vcetne prave strany (jen cisla) rovnice. \nPr.: matrix 2x2\n1 2 3\n3 4 7\n";
     std::cout   <<  "Vase cisla:"   <<  std::endl;
+    std::cout   <<  "======================================================"<< std::endl;
     for (auto &i : matrix) {
         for (double &j : i) {
             std::cin >> tmp;
@@ -218,11 +229,17 @@ int     terminalBranch( std::vector< std::vector <double> > &matrix){
 }
 
 void    footer(){
-        std::cout   <<  "Preji hezky den."   <<  std::endl;
+    std::cout   <<  "================"<< std::endl;
+    std::cout   <<  "Preji hezky den."   <<  std::endl;
+    std::cout   <<  "================"<< std::endl;
+
 }
 
 void    printMatrix(std::vector< std::vector <double> > &matrix){
+    std::cout   <<  "======================================================"<< std::endl;
+
     std::cout   <<    "Vase matice je: "  <<  std::endl;
+    std::cout   <<  "======================================================"<< std::endl;
     std::cout   <<  std::setprecision(3);
     for (auto &i : matrix) {
         for (int j = 0; j < i.size(); j++)
@@ -234,6 +251,8 @@ void    printMatrix(std::vector< std::vector <double> > &matrix){
         }
         std::cout   <<  std::endl;
     }
+    std::cout   <<  "======================================================"<< std::endl;
+    std::cout   <<  std::endl;
 }
 
 std::string outFileName(){

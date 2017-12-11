@@ -1,8 +1,6 @@
 
 #include "funkce.h"
 #include <iostream>
-#include <vector>
-#include <cstdlib>
 #include <iomanip>
 #include <fstream>
 #include <sstream>
@@ -40,95 +38,111 @@ void    prepareString           (std::string &out,
                                  std::vector<std::vector<double> > &triangle,
                                  std::vector<std::vector<double> > &matrix,
                                  std::vector<double> &roots){
-    std::cout   <<  std::setprecision(2);
+    //std::cout   <<  std::setprecision(2);
+    std::stringstream str;
+    str<<std::setprecision(2);
     if (where=='C'){                        ///CSV branch
         if (what==1 || what==3 || what==5 ||what==7){
-            //out="Trojuhelnikovy tvar matice:\n";
             for (int i = 0; i < matrix.size(); ++i) {
                 for (int j = 0; j < matrix.size()+1; ++j) {
-                    out+=std::to_string(triangle[i][j]);
-                    out+="\t";
-                    if (j==matrix.size()){
-                        out+="|\t";
+                    str <<  triangle[i][j]  <<  "\t";
+                    if (j==matrix.size()-1){
+                        str <<  "|\t";
                     }
                 }
-                out+="\n";
+                str <<   "\n";
             }
         }
         if (what==2 || what==3 || what==6 || what==7){
             //out+="Determinant= ";
-            out+=std::to_string(determ);
-            out="\n";
+            str <<  determ  <<  "\n";
         }
         if (what==4 || what==5 || what==6 || what==7){
             auto g=(int)roots.size();
+            int i;
             char tmp;
             //out+="Koreny: ";
             for (int k = 0; k < g+1; ++k) {
-                tmp=(char)('a'+k);
-                out+=std::to_string(tmp);
-                out+=
-                out+=std::to_string(roots[g-k]);
+                i=('a'+k);
+                tmp= char(i);
+                //std::cout <<    tmp<<std::endl<<std::endl;
+                str <<  tmp <<  "= "    <<  roots[g-k]  <<  "\n";
             }
         }
     }
     else if (where=='H'){
-        out="<!DOCTYPE html>\n"
+        str <<  std::setprecision(3);
+        str <<  "<!DOCTYPE html>\n"
                 "<html lang=\"cs\" dir=\"ltr\">\n"
                 "  <head>\n"
                 "    <meta charset=\"UTF-8\">\n"
                 "    <title>Vypocty nad maticemi</title>\n"
                 "  </head>\n"
                 "  <body>\n";
-        if (what==1 || what==3 || what==5 ||what==7){
-            out+="<h1>Trojuhelnikovy tvar matice:</h1></br>";
+        if (what==1 || what==3 || what==5 ||what==7) {
+            str << "<h3>Trojuhelnikovy tvar matice:</h3>\n";
+            str <<   "<table style=\"width:42%\"><h4>";
+
             for (int i = 0; i < triangle.size(); ++i) {
-                for (int j = 0; j < triangle.size()+1; ++j) {
-                    out+=std::to_string(triangle[i][j]);
-                    out+="\t";
-                    if (j==triangle.size()){
-                        out+="|\t";
+                str << "<tr>";
+                for (int j = 0; j < triangle.size() + 1; ++j) {
+                    str << "<th>" << triangle[i][j] << "</th>";
+                    if (j == triangle.size() - 1) {
+                        str << "<th>" << "| " << "</th>";
                     }
                 }
-                out+="\n";
+                str << "</tr>\n";
             }
+            str << "</table>\n";
         }
+            if (what==2 || what==3 || what==6 || what==7){
+                str <<  "</h4><h3>Determinant= " <<  determ  <<  "</h3><h4>";
+            }
+            if (what==4 || what==5 || what==6 || what==7){
+                auto g=(int)roots.size();
+                int i;
+                char tmp;
+                str<<"</h4><h3>Koreny: </h3><h4>";
+                for (int k = 0; k < g+1; ++k) {
+                    i=('a'+k);
+                    tmp= char(i);
+                    //std::cout <<    tmp<<std::endl<<std::endl;
+                    str <<std::fixed<<  tmp <<  "= "    <<  roots[g-k]  <<  "</br>\n";
+                }
+            }
+        str <<  "</h4></body></html>";
+
 
     } else{
         if (what==1 || what==3 || what==5 ||what==7){
             out="Trojuhelnikovy tvar matice:\n";
             for (int i = 0; i < matrix.size(); ++i) {
                 for (int j = 0; j < matrix.size()+1; ++j) {
-                    out+=std::to_string(triangle[i][j]);
-                    out+="\t";
+                    str <<  triangle[i][j]  <<  "\t\t";
                     if (j==matrix.size()-1){
-                        out+="|\t";
+                        str <<  "|\t";
                     }
                 }
-                out+="\n";
+                str <<  "\n";
             }
         }
         if (what==2 || what==3 || what==6 || what==7){
-            out+="Determinant= ";
-            out+=std::to_string(determ);
-            out+="\n";
+            str <<  "Determinant= " <<  determ  <<  "\n";
         }
         if (what==4 || what==5 || what==6 || what==7){
             auto g=(int)roots.size();
             char tmp;
             int i;
-            out+="Koreny: \n";
+            str <<  std::fixed  <<  std::setprecision(3)    <<  "Koreny: \n";
             for (int k = 0; k < g+1; ++k) {
                 i=('a'+k);
                 tmp= char(i);
                 //std::cout <<    tmp<<std::endl<<std::endl;
-                out+=tmp;
-                out+="= ";
-                out+=std::to_string(roots[g-k]);
-                out+="\n";
+                str <<  tmp <<  "= "    <<  roots[g-k]  <<  "\n";
             }
         }
     }
+    out=str.str();
 }
 
 
