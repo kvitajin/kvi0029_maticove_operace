@@ -41,7 +41,7 @@ void    prepareString           (std::string &out,
     //std::cout   <<  std::setprecision(2);
     std::stringstream str;
     str<<std::setprecision(2);
-    if (where=='C'){                        ///CSV branch
+    if (where=='C'){                                                     ///CSV branch
         if (what==1 || what==3 || what==5 ||what==7){
             for (int i = 0; i < matrix.size(); ++i) {
                 for (int j = 0; j < matrix.size()+1; ++j) {
@@ -70,7 +70,7 @@ void    prepareString           (std::string &out,
             }
         }
     }
-    else if (where=='H'){
+    else if (where=='H'){                                        ///HTML branch
         str <<  std::setprecision(3);
         str <<  "<!DOCTYPE html>\n"
                 "<html lang=\"cs\" dir=\"ltr\">\n"
@@ -113,9 +113,9 @@ void    prepareString           (std::string &out,
         str <<  "</h4></body></html>";
 
 
-    } else{
+    } else{                                                         ///terminal branch
         if (what==1 || what==3 || what==5 ||what==7){
-            out="Trojuhelnikovy tvar matice:\n";
+            str <<  "Trojuhelnikovy tvar matice:\n";
             for (int i = 0; i < matrix.size(); ++i) {
                 for (int j = 0; j < matrix.size()+1; ++j) {
                     str <<  triangle[i][j]  <<  "\t\t";

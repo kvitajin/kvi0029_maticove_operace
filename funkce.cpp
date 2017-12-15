@@ -21,7 +21,9 @@ char    odkudCtu(){
         std::cin    >>  pismeno;
 
         if (std::cin.fail()){
-            std::cout   <<  "Nezadal jste validni pismeno. Zkuste to znova." <<  std::endl;
+            std::cout   <<  "============================================="<< std::endl;
+            std::cout   <<  "Nezadal jste validni pismeno. Zkuste to znova" <<  std::endl;
+            std::cout   <<  "============================================="<< std::endl;
             return 'E';
         }
         if (pismeno=='t' || pismeno == 'T'){
@@ -34,31 +36,31 @@ char    odkudCtu(){
             return 'X';
         }
         else {
-            std::cout   <<  "================================="<< std::endl;
-            std::cout   <<  "Nezadal jste validni pismeno." <<  std::endl;
-            std::cout   <<  "================================="<< std::endl;
+            std::cout   <<  "============================================="<< std::endl;
+            std::cout   <<  "Nezadal jste validni pismeno. Zkuste to znova" <<  std::endl;
+            std::cout   <<  "============================================="<< std::endl;
 
             return 'E';
         }
 }
 
-void    velikostMatice(int &radku, int &sloupcu){
+void    velikostMatice(int &rows, int &columns){
         std::cout   <<  "==============================================="<< std::endl;
         std::cout   <<  "Zadejte pozadovanou velikost LEVE strany matrix"  <<  std::endl;
-        std::cout   <<  "Zadejte pocet radku:"      <<  std::endl;
+        std::cout   <<  "Zadejte pocet rows:"      <<  std::endl;
         std::cout   <<  "==============================================="<< std::endl;
-        std::cin    >>  radku;
+        std::cin    >>  rows;
         std::cout   <<  "==============================================="<< std::endl;
-        std::cout   <<  "Zadejte pocet sloupcu:"    <<  std::endl;
+        std::cout   <<  "Zadejte pocet columns:"    <<  std::endl;
         std::cout   <<  "==============================================="<< std::endl;
-        std::cin    >>  sloupcu;
+        std::cin    >>  columns;
 
 }
 
-void    makeMatrix(const int radku, const int sloupcu, std::vector<std::vector<double> > &matrix){
-        matrix.resize((unsigned long)radku);
-        for(int i = 0 ; i < radku ; ++i){
-            matrix[i].resize((unsigned long)sloupcu+1);
+void    makeMatrix(const int &rows, const int &columns, std::vector<std::vector<double> > &matrix){
+        matrix.resize((unsigned long)rows);
+        for(int i = 0 ; i < rows ; ++i){
+            matrix[i].resize((unsigned long)columns+1);
         }
 }
 
@@ -71,34 +73,34 @@ std::string inFileName(){
         return cesta;
 }
 
-std::string overPriponu(std::string& jmeno){
+std::string overPriponu(std::string& name){
     bool *flagPripona;                                      ///dynamic allocated variable, because I can
     flagPripona=new bool[1];
     flagPripona[0]=false;
-    for (int i = 1; i < (int)jmeno.length(); ++i) {         //preskocenim nulteho znaku se vyhnu
-        if (((jmeno[i-1]>='a'    &&  jmeno[i-1]<='z')    ||
-             (jmeno[i-1]>='A'    &&  jmeno[i-1]<='Z'))   &&
-              jmeno[i]=='.' ) {
+    for (int i = 1; i < (int)name.length(); ++i) {         //// have to skip zero char
+        if (((name[i-1]>='a'    &&  name[i-1]<='z')    ||
+             (name[i-1]>='A'    &&  name[i-1]<='Z'))   &&
+              name[i]=='.' ) {
             flagPripona[0]= true;
         }
     }
     if (!flagPripona[0]){
-        jmeno+=".csv";
+        name+=".csv";
     }
     delete[]flagPripona;
-    return jmeno;
+    return name;
 }
 
-void    fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter, int &rows, int &columns){
+void    fileParseSizeOfMatrix(std::string &line, int &errFlag, char &delimiter, int &rows, int &columns){
     int tmp=0, i, flag=0;
-    for (i = 0; i < (int)radek.size(); ++i) {
-        if ((radek[i]>='0'   &&  radek[i]<='9')  ||
-            (radek[i]==' ' ||radek[i]==',')){
+    for (i = 0; i < (int)line.size(); ++i) {
+        if ((line[i]>='0'   &&  line[i]<='9')  ||
+            (line[i]==' ' ||line[i]==',')){
         } else{
             ++errFlag;
             break;
         }
-        if (radek[i]==delimiter){
+        if (line[i]==delimiter){
             if (flag){
                 columns=tmp;
                 break;
@@ -110,26 +112,26 @@ void    fileParseSizeOfMatrix(std::string &radek, int &errFlag, char &delimiter,
             }
         }
         tmp*=10;
-        tmp+=radek[i]-48;
+        tmp+=line[i]-48;
     }
 
 }
 
-int     fileFillLineOfMatrix(std::string &radek, std::vector<std::vector<double> > &matrix, const int i, char &delimiter){
+int     fileFillLineOfMatrix(std::string &line, std::vector<std::vector<double> > &matrix, const int &i, char &delimiter){
     int tmp=0, pos=0, sign=0;
-    //std::cout   <<  radek   <<  std::endl;
-    for (int j = 0; j < (int)radek.length(); ++j) {
-        if (radek[j]==delimiter){
+    //std::cout   <<  line   <<  std::endl;
+    for (int j = 0; j < (int)line.length(); ++j) {
+        if (line[j]==delimiter){
             continue;
         }
-        if (radek[j]=='-'){
+        if (line[j]=='-'){
             sign=1;
             continue;
         }
-        while (radek[j]!=delimiter){
+        while (line[j]!=delimiter){
             tmp*=10;
-            tmp+=radek[j]-48;
-            if(j<(int)radek.length()-1){
+            tmp+=line[j]-48;
+            if(j<(int)line.length()-1){
                 ++j;
             } else{
                 break;
@@ -162,7 +164,7 @@ int     fileRead(std::string &filename, int &errFlag, char &delimiter, std::vect
     //std::cout   << "jsem zde";
     fileParseSizeOfMatrix(radek, errFlag, delimiter, rows, columns);
 
-    std::getline(read, radek);      ///radek odradkovani, nepouzije se
+    std::getline(read, radek);      ///doesn't used line
     makeMatrix(rows, columns, matrix);
 
     int i=0;
@@ -189,7 +191,7 @@ char    fileDelimiterFunction(char &delimiter){        //TODO ws
 
 }
 
-int     fileBranch(std::vector<std::vector<double> > &matrix){
+void     fileBranch(std::vector<std::vector<double> > &matrix){
     int errFlag=0;
     char delimiter;
     std::string name;

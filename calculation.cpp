@@ -137,7 +137,7 @@ int root    (std::vector< std::vector <double> > &matrix,std::vector<double > &r
     }*/
 }
 int whatToSave(){
-    int tmp;
+    int tmp=0;
     std::cout   <<  "================================="<< std::endl;
     std::cout   <<  "Co chcete ulozit?"<< std::endl;
     std::cout   <<  "Pro kombinace cisla scitejte"<< std::endl;
@@ -149,6 +149,9 @@ int whatToSave(){
     if (std::cin.fail() ||
         tmp<1           ||
         tmp>7){
+        std::cin.clear();
+        std::cin.ignore();
+
         return 0;
     } else{
         return tmp;
