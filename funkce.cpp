@@ -117,7 +117,7 @@ void    fileParseSizeOfMatrix(std::string &line, int &errFlag, char &delimiter, 
 
 }
 
-int     fileFillLineOfMatrix(std::string &line, std::vector<std::vector<double> > &matrix, const int &i, char &delimiter){
+void     fileFillLineOfMatrix(std::string &line, std::vector<std::vector<double> > &matrix, const int &row, char &delimiter){
     int tmp=0, pos=0, sign=0;
     //std::cout   <<  line   <<  std::endl;
     for (int j = 0; j < (int)line.length(); ++j) {
@@ -141,7 +141,7 @@ int     fileFillLineOfMatrix(std::string &line, std::vector<std::vector<double> 
             tmp*=-1;
             sign=0;
         }
-        matrix[i][pos]=tmp;
+        matrix[row][pos]=tmp;
         tmp=0;
         ++pos;
     }
@@ -164,14 +164,14 @@ int     fileRead(std::string &filename, int &errFlag, char &delimiter, std::vect
     //std::cout   << "jsem zde";
     fileParseSizeOfMatrix(radek, errFlag, delimiter, rows, columns);
 
-    std::getline(read, radek);      ///doesn't used line
+    std::getline(read, radek);                   ///unused line for spacing
     makeMatrix(rows, columns, matrix);
 
-    int i=0;
+    int row=0;
     while (!read.eof()){
         std::getline(read, radek);
-        fileFillLineOfMatrix(radek, matrix, i, delimiter);
-        ++i;
+        fileFillLineOfMatrix(radek, matrix, row, delimiter);
+        ++row;
     }
     //printMatrix(matrix);
     return 0;
@@ -222,7 +222,7 @@ int     terminalFillMatrix(std::vector< std::vector <double> > &matrix){
     printMatrix(matrix);
 }
 
-int     terminalBranch( std::vector< std::vector <double> > &matrix){
+void     terminalBranch( std::vector< std::vector <double> > &matrix){
     int rows=0, columns=0;
 
     velikostMatice(rows, columns);
@@ -244,7 +244,7 @@ void    printMatrix(std::vector< std::vector <double> > &matrix){
     std::cout   <<  "======================================================"<< std::endl;
     std::cout   <<  std::setprecision(3);
     for (auto &i : matrix) {
-        for (int j = 0; j < i.size(); j++)
+        for (int j = 0; j < (int)i.size(); j++)
         {
             if (j== i.size()-1){
                 std::cout   <<  "|\t";

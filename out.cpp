@@ -43,8 +43,8 @@ void    prepareString           (std::string &out,
     str<<std::setprecision(2);
     if (where=='C'){                                                     ///CSV branch
         if (what==1 || what==3 || what==5 ||what==7){
-            for (int i = 0; i < matrix.size(); ++i) {
-                for (int j = 0; j < matrix.size()+1; ++j) {
+            for (int i = 0; i < (int)matrix.size(); ++i) {
+                for (int j = 0; j < (int)matrix.size()+1; ++j) {
                     str <<  triangle[i][j]  <<  "\t";
                     if (j==matrix.size()-1){
                         str <<  "|\t";
@@ -83,11 +83,11 @@ void    prepareString           (std::string &out,
             str << "<h3>Trojuhelnikovy tvar matice:</h3>\n";
             str <<   "<table style=\"width:42%\"><h4>";
 
-            for (int i = 0; i < triangle.size(); ++i) {
+            for (int i = 0; i < (int)triangle.size(); ++i) {
                 str << "<tr>";
-                for (int j = 0; j < triangle.size() + 1; ++j) {
+                for (int j = 0; j < (int)triangle.size() + 1; ++j) {
                     str << "<th>" << triangle[i][j] << "</th>";
-                    if (j == triangle.size() - 1) {
+                    if (j == (int)triangle.size() - 1) {
                         str << "<th>" << "| " << "</th>";
                     }
                 }
@@ -116,10 +116,10 @@ void    prepareString           (std::string &out,
     } else{                                                         ///terminal branch
         if (what==1 || what==3 || what==5 ||what==7){
             str <<  "Trojuhelnikovy tvar matice:\n";
-            for (int i = 0; i < matrix.size(); ++i) {
-                for (int j = 0; j < matrix.size()+1; ++j) {
+            for (int i = 0; i < (int)matrix.size(); ++i) {
+                for (int j = 0; j < (int)matrix.size()+1; ++j) {
                     str <<  triangle[i][j]  <<  "\t\t";
-                    if (j==matrix.size()-1){
+                    if (j==(int)matrix.size()-1){
                         str <<  "|\t";
                     }
                 }

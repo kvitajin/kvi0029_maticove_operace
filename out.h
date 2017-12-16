@@ -14,13 +14,13 @@ int         makeFinalSolution(std::string &out, std::string outFileName, char wh
 
 /**
  * This function prepares the string
- * @param out
- * @param where
- * @param what
- * @param determ
- * @param triangle
- * @param matrix
- * @param roots
+ * @param out       string with all information will be saved
+ * @param where     char which tell where to save (T- terminal, C-csv file, H-html file)
+ * @param what      int which say that to save (1-gem, 2-determinant, 4- roots, theirs sums says combinatoins of them)
+ * @param determ    variable with determinant
+ * @param triangle  triangle shape of matrix
+ * @param matrix    matrix with... what the fuck?
+ * @param roots     vector of roots
  */
 
 void        prepareString           (std::string &out,

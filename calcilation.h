@@ -17,16 +17,15 @@ int         gem         (std::vector< std::vector <double> > &matrix);
 /**
  * This function calculates determinant of the matrix
  * @param matrix    dereference for matrix with the data
- * @param determ
- * @return
+ * @param determ    empty variable for saving determinant
+ * @return          returns calculated determinant of matrix
  */
 long int    determinant (std::vector< std::vector <double> > &matrix, long int &determ);
-int         det         (std::vector< std::vector <double> > &matrix);
 
 /**
  * This function returns the real roots of the matrix
  * @param matrix    dereference for matrix with the data
- * @param roots
+ * @param roots     vector of roots of the matrix
  * @return
  */
 
@@ -34,7 +33,7 @@ int         root        (std::vector< std::vector <double> > &matrix, std::vecto
 
 /**
  * This function asks about saving requirements
- * @return
+ * @return          returns number which say that to save (1-gem, 2-determinant, 4- roots, theirs sums says combinatoins of them)
  */
 
 int         whatToSave  ();

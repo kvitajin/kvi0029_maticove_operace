@@ -76,7 +76,6 @@ void         fileBranch              (std::vector< std::vector <double> > &matri
 /**
  * This function loads numbers from terminal and saves them into the matrix
  * @param matrix    dereference for matrix with the data
- * @return                                                                              //todo
  */
 
 int         terminalFillMatrix      (std::vector< std::vector <double> > &matrix);
@@ -84,10 +83,9 @@ int         terminalFillMatrix      (std::vector< std::vector <double> > &matrix
 /**
  * This function manages other functions while loading from the terminal
  * @param matrix    dereference for matrix with the data
- * @return                                                                               //todo continue here
  */
 
-int         terminalBranch          (std::vector< std::vector <double> > &matrix);
+void         terminalBranch          (std::vector< std::vector <double> > &matrix);
 
 /**
  * This function print matrix
@@ -113,26 +111,25 @@ void        fileParseSizeOfMatrix   (std::string &line,
 
 /**
  * This function loads one line from the file and inserts it into the matrix
- * @param line
+ * @param line      char line of matrix got from .csv file
  * @param matrix    dereference for matrix with the data
- * @param i
+ * @param row       number of row in matrix (index bagin on 0)
  * @param delimiter delimiter char
- * @return
  */
 
 
-int         fileFillLineOfMatrix    (std::string &line,
+void         fileFillLineOfMatrix    (std::string &line,
                                      std::vector<std::vector<double> > &matrix,
-                                     const int &i,
+                                     const int &row,
                                      char &delimiter);
 
 /**
  * This function manages file loading
- * @param filename
- * @param errFlag
- * @param delimiter
+ * @param filename  surprisingly name of the opened file
+ * @param errFlag   flag reporting errors
+ * @param delimiter delimiter char
  * @param matrix    dereference for matrix with the data
- * @return
+ * @return          0 for success, 1 for error
  */
 
 int         fileRead                (std::string &filename,
@@ -143,7 +140,7 @@ int         fileRead                (std::string &filename,
 
 /**
  * This function enters the output file name
- * @return
+ * @return          0 for success, 1 for error
  */
 
 std::string outFileName                ();
