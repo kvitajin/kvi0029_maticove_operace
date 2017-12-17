@@ -58,7 +58,7 @@ int root    (std::vector< std::vector <double> > &matrix,std::vector<double > &r
     double tmp;
     int i=0;
     for (i = 0; i < (int)matrix.size()-1; ++i) {
-        tmp=matrix[n-i][n+1]/matrix[n-i][n-i];                                            /// making root and beging on the end
+        tmp=matrix[n-i][n+1]/matrix[n-i][n-i];                                            /// making root and beginning on the end
         roots.push_back(tmp);
         //std::cout   <<  "tmp "   <<  tmp    <<    " "  <<  n-i  << std::endl;
         for (int j = i+1; j < (int)matrix.size(); ++j) {
@@ -67,7 +67,7 @@ int root    (std::vector< std::vector <double> > &matrix,std::vector<double > &r
 
         }
     }
-    tmp=matrix[0][n+1]/matrix[0][0];                                            /// making root and beging on the end
+    tmp=matrix[0][n+1]/matrix[0][0];                                            /// making root and beginning on the end
     roots.push_back(tmp);
     printMatrix(matrix);
     /*auto g=(int)roots.size();

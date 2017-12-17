@@ -68,28 +68,28 @@ char        fileDelimiterFunction   (char &delimiter);
 
 /**
  * This function manages other functions while loading from the file
- * @param matrix    dereference for matrix with the data
+ * @param matrix    dereference of matrix with the data
  */
 
 void         fileBranch              (std::vector< std::vector <double> > &matrix);
 
 /**
  * This function loads numbers from terminal and saves them into the matrix
- * @param matrix    dereference for matrix with the data
+ * @param matrix    dereference of matrix with the data
  */
 
 int         terminalFillMatrix      (std::vector< std::vector <double> > &matrix);
 
 /**
  * This function manages other functions while loading from the terminal
- * @param matrix    dereference for matrix with the data
+ * @param matrix    dereference of matrix with the data
  */
 
 void         terminalBranch          (std::vector< std::vector <double> > &matrix);
 
 /**
  * This function print matrix
- * @param matrix    dereference for matrix with the data
+ * @param matrix    dereference of matrix with the data
  */
 
 void        printMatrix             (std::vector< std::vector <double> > &matrix);
@@ -112,7 +112,7 @@ void        fileParseSizeOfMatrix   (std::string &line,
 /**
  * This function loads one line from the file and inserts it into the matrix
  * @param line      char line of matrix got from .csv file
- * @param matrix    dereference for matrix with the data
+ * @param matrix    dereference of matrix with the data
  * @param row       number of row in matrix (index bagin on 0)
  * @param delimiter delimiter char
  */
@@ -125,10 +125,10 @@ void         fileFillLineOfMatrix    (std::string &line,
 
 /**
  * This function manages file loading
- * @param filename  surprisingly name of the opened file
+ * @param filename  name of the opened file
  * @param errFlag   flag reporting errors
  * @param delimiter delimiter char
- * @param matrix    dereference for matrix with the data
+ * @param matrix    dereference of matrix with the data
  * @return          0 for success, 1 for error
  */
 
