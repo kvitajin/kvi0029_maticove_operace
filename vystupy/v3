@@ -1,0 +1,74 @@
+2,1,1,5,2,0
+4,-6,0,-2,-1,1
+-2,7,2,9,5,2
+2,1,5,5,2,3
+5,9,6,3,0,4
+
+Vase matice je: 
+2	1	1	5	2	|	0	
+4	-6	0	-2	-1	|	1	
+-2	7	2	9	5	|	2	
+2	1	5	5	2	|	3	
+5	9	6	3	0	|	4	
+Column: 0
+Vase matice je: 
+2	1	1	5	2	|	0	
+4	-6	0	-2	-1	|	1	
+-2	7	2	9	5	|	2	
+2	1	5	5	2	|	3	
+5	9	6	3	0	|	4	
+Got non-zero value for row 0 and col 0
+Not swapping rows
+del: 2
+del: -1
+del: 1
+del: 2.5
+Column: 1
+Vase matice je: 
+2	1	1	5	2	|	0	
+0	-8	-2	-12	-5	|	1	
+0	8	3	14	7	|	2	
+0	0	4	0	0	|	3	
+0	6.5	3.5	-9.5	-5	|	4	
+Got non-zero value for row 1 and col 1
+Not swapping rows
+del: -1
+del: -0
+del: -0.8125
+Column: 2
+Vase matice je: 
+2	1	1	5	2	|	0	
+0	-8	-2	-12	-5	|	1	
+0	0	1	2	2	|	2	
+0	0	4	0	0	|	3	
+0	0	1.875	-19.25	-9.0625	|	4	
+Got non-zero value for row 2 and col 2
+Not swapping rows
+del: 4
+del: 1.875
+Column: 3
+Vase matice je: 
+2	1	1	5	2	|	0	
+0	-8	-2	-12	-5	|	1	
+0	0	1	2	2	|	2	
+0	0	0	-8	-8	|	3	
+0	0	0	-23	-12.8125	|	4	
+Got non-zero value for row 3 and col 3
+Not swapping rows
+del: 2.875
+Column: 4
+Vase matice je: 
+2	1	1	5	2	|	0	
+0	-8	-2	-12	-5	|	1	
+0	0	1	2	2	|	2	
+0	0	0	-8	-8	|	3	
+0	0	0	0	10.1875	|	4	
+Got non-zero value for row 4 and col 4
+Not swapping rows
+Vase matice je: 
+2	1	1	5	2	|	0	
+0	-8	-2	-12	-5	|	1	
+0	0	1	2	2	|	2	
+0	0	0	-8	-8	|	3	
+0	0	0	0	10.1875	|	4	
+1304

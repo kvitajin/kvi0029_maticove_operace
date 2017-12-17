@@ -62,8 +62,8 @@ void    prepareString           (std::string &out,
             int i;
             char tmp;
             //out+="Koreny: ";
-            for (int k = 0; k < g+1; ++k) {
-                i=('a'+k);
+            for (int k = 1; k < g+1; ++k) {
+                i=('a'+k-1);
                 tmp= char(i);
                 //std::cout <<    tmp<<std::endl<<std::endl;
                 str <<  tmp <<  "= "    <<  roots[g-k]  <<  "\n";
@@ -103,8 +103,8 @@ void    prepareString           (std::string &out,
                 int i;
                 char tmp;
                 str<<"</h4><h3>Koreny: </h3><h4>";
-                for (int k = 0; k < g+1; ++k) {
-                    i=('a'+k);
+                for (int k = 1; k < g+1; ++k) {
+                    i=('a'+k-1);
                     tmp= char(i);
                     //std::cout <<    tmp<<std::endl<<std::endl;
                     str <<std::fixed<<  tmp <<  "= "    <<  roots[g-k]  <<  "</br>\n";
@@ -134,10 +134,9 @@ void    prepareString           (std::string &out,
             char tmp;
             int i;
             str <<  std::fixed  <<  std::setprecision(3)    <<  "Koreny: \n";
-            for (int k = 0; k < g+1; ++k) {
-                i=('a'+k);
+            for (int k = 1; k < g+1; ++k) {
+                i=('a'+k-1);
                 tmp= char(i);
-                //std::cout <<    tmp<<std::endl<<std::endl;
                 str <<  tmp <<  "= "    <<  roots[g-k]  <<  "\n";
             }
         }

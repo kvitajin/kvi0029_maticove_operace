@@ -45,14 +45,14 @@ char    odkudCtu(){
 }
 
 void    velikostMatice(int &rows, int &columns){
-        std::cout   <<  "==============================================="<< std::endl;
-        std::cout   <<  "Zadejte pozadovanou velikost LEVE strany matrix"  <<  std::endl;
-        std::cout   <<  "Zadejte pocet rows:"      <<  std::endl;
-        std::cout   <<  "==============================================="<< std::endl;
+        std::cout   <<  "==============================================="   << std::endl;
+        std::cout   <<  "Zadejte pozadovanou velikost LEVE strany matice"   <<  std::endl;
+        std::cout   <<  "Zadejte pocet radku:"      <<  std::endl;
+        std::cout   <<  "==============================================="   << std::endl;
         std::cin    >>  rows;
-        std::cout   <<  "==============================================="<< std::endl;
-        std::cout   <<  "Zadejte pocet columns:"    <<  std::endl;
-        std::cout   <<  "==============================================="<< std::endl;
+        std::cout   <<  "==============================================="   << std::endl;
+        std::cout   <<  "Zadejte pocet sloupcu:"    <<  std::endl;
+        std::cout   <<  "==============================================="   << std::endl;
         std::cin    >>  columns;
 
 }
@@ -209,8 +209,9 @@ int     terminalFillMatrix(std::vector< std::vector <double> > &matrix){
     std::cout   <<  "Zadejte matici vcetne prave strany (jen cisla) rovnice. \nPr.: matrix 2x2\n1 2 3\n3 4 7\n";
     std::cout   <<  "Vase cisla:"   <<  std::endl;
     std::cout   <<  "======================================================"<< std::endl;
-    for (auto &i : matrix) {
-        for (double &j : i) {
+    for (size_t i = 0; i < matrix.size(); i++) {
+        std::cout   <<  "Zadejte "  <<  (i+1)   <<". radek"<<std::endl;
+        for (double &j : matrix[i]) {
             std::cin >> tmp;
             if (std::cin.fail()){
                 return 1;

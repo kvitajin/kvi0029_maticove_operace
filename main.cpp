@@ -67,14 +67,13 @@ int main() {
 
     if (Info.where == 'T') {
         std::cout   <<  out;
-        return 0;
 
     } else if (Info.where == 'C' || Info.where=='H') {
         tmp=makeFinalSolution(out, Info.outFilename, Info.where);
         return tmp;
     }
 
-
+    footer();
 
     return 0;
 }
